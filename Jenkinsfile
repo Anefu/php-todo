@@ -26,17 +26,20 @@ pipeline {
                 sh 'php artisan key:generate'
             }
         }
+
         stage('Execute Unit Tests') {
             steps {
                 sh './vendor/bin/phpunit'
             }
         }
+
         stage('Code Analysis') {
             steps {
                 sh 'sudo phploc app/ --log-csv build/logs/phploc.csv'
 
             }
         }
+
         stage('Plot Code Coverage Report') {
             steps {
 
@@ -55,11 +58,13 @@ pipeline {
 
             }
         }
+
         stage ('Package Artifact') {
             steps {
                 sh 'zip -qr ${WORKSPACE}/php-todo.zip ${WORKSPACE}/*'
             }
         }
+        
         stage('SonarQube Quality Gate') {
             when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
             environment {
