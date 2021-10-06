@@ -19,7 +19,7 @@ pipeline {
         
         stage('Build image') {
             steps {
-                sh "docker build -t anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                sh "docker build -t anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
             }
         }
     }
