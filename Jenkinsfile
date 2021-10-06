@@ -25,7 +25,7 @@ pipeline {
 
         stage("Push to Docker Hub") {
             steps {
-            sh "docker push anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+            sh "docker push anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
             }
         }
     }
