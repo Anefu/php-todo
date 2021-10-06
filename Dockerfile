@@ -18,5 +18,5 @@ RUN composer install --ignore-platform-reqs &>/dev/null
 
 COPY ./serve.sh serve.sh
 
-CMD ["sh", "serve.sh"]
+ENTRYPOINT ["sh", "serve.sh"]
 
