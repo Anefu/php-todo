@@ -24,7 +24,7 @@ pipeline {
         }
         stage("Test endpoint") {
             steps {
-                httpRequest(name: 'response', responseHandle: 'NONE', url: 'http://localhost:8000', validResponseCodes: '200', wrapAsMultipart: false) {
+                httpRequest(url: 'http://localhost:8000') {
                     echo response.getStatus()
                 }
             }
