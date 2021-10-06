@@ -22,6 +22,13 @@ pipeline {
                 sh "docker build -t anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
             }
         }
+        stage("Test endpoint") {
+            steps {
+                httpRequest([responseHandle: 'NONE', url: 'http://localhost:8000', validResponseCodes: '200', wrapAsMultipart: false]) {
+                    echo response.getStatus()
+                }
+            }
+        }
         stage('Docker Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {

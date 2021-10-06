@@ -16,6 +16,7 @@ RUN sed -i -e "s/DB_HOST=127\.0\.0\.1/DB_HOST=${DB_HOST}/" .env.sample && mv .en
 
 RUN composer install --ignore-platform-reqs &>/dev/null
 
-RUN php artisan migrate && php artisan key:generate &>/dev/null && php artisan db:seed &>/dev/null
+COPY ./serve.sh serve.sh
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
+CMD ["sh", "serve.sh"]
+
