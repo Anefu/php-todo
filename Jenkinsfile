@@ -24,8 +24,11 @@ pipeline {
         }
         stage("Test endpoint") {
             steps {
-                httpRequest('http://localhost:8000') {
-                    echo response.getStatus()
+                httpRequest('http://www.example.com') {
+                    httpMode('POST')
+                    authentication('Credentials')
+                    returnCodeBuildRelevant()
+                    logResponseBody()
                 }
             }
         }
