@@ -22,5 +22,13 @@ pipeline {
                 sh "docker build -t anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
             }
         }
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    sh 'docker push anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}'
+                }
+            }
+        }
     }
 }
