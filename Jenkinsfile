@@ -24,12 +24,10 @@ pipeline {
         }
         stage("Test endpoint") {
             steps {
-                httpRequest('http://www.example.com') {
-                    httpMode('POST')
-                    authentication('Credentials')
-                    returnCodeBuildRelevant()
-                    logResponseBody()
-                }
+                script {
+                    def response = httpRequest 'http://localhost:8080/jenkins/api/json?pretty=true'
+                    println("Status: "+response.status)
+                    println("Content: "+response.content)                }
             }
         }
         stage('Docker Push') {
