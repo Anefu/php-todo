@@ -72,5 +72,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.KNOWN_HOSTS_OF_TARGET }}
       - name: Deploy to PRODUCTION Server
-        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
+        run: dep deploy --filename=deploy.php -vvv
       
