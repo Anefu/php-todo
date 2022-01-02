@@ -6,25 +6,25 @@ on:
       - main
 
 jobs:
-  deploy:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install Deployer
-        uses: appleboy/ssh-action@master
-        with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ubuntu
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-                curl -LO https://deployer.org/deployer.phar
-                sudo mv deployer.phar /usr/local/bin/dep
-                sudo chmod +x /usr/local/bin/dep
+      # - name: Install Deployer
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #       host: ${{ secrets.SSH_HOST }}
+      #       username: ubuntu
+      #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #       script: |
+      #           curl -LO https://deployer.org/deployer.phar
+      #           sudo mv deployer.phar /usr/local/bin/dep
+      #           sudo chmod +x /usr/local/bin/dep
                     
-      - name: SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      # - name: SSH Agent
+      #   uses: webfactory/ssh-agent@v0.5.4
+      #   with:
+      #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Install SSH key of bastion
         uses: shimataro/ssh-key-action@v2
@@ -36,7 +36,7 @@ jobs:
             Host bastion
               HostName ${{ secrets.SSH_HOST }}
               User ubuntu
-              
+
       - name: Install SSH key of target
         uses: shimataro/ssh-key-action@v2
         with:
@@ -52,4 +52,25 @@ jobs:
 
       - name: SSH Action
         run: ssh target 'hostname -i'
+
+  deploy-production:
+    name: Deploy Project
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.4
+          extension-csv: mbstring, bcmath
+      - name: Composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Setup Deployer
+        uses: atymic/deployer-php-action@master
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.KNOWN_HOSTS_OF_TARGET }}
+      - name: Deploy to PRODUCTION Server
+        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
       
