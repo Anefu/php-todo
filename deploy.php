@@ -30,7 +30,7 @@ task('deploy', [
     'deploy:symlink',
     'artisan:migrate',
     'artisan:db:seed',
-    'artisan:key:generate',
+    // 'artisan:key:generate',
     // 'restart-nginx',
     'cleanup'
 ]);
