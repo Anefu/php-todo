@@ -25,6 +25,8 @@ jobs:
       #   uses: webfactory/ssh-agent@v0.5.4
       #   with:
       #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Rename .env
+        run: cp .env.sample .env
 
       - name: Install SSH key of bastion
         uses: shimataro/ssh-key-action@v2
