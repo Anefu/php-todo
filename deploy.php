@@ -37,5 +37,5 @@ task('deploy', [
 
 task ('restart-nginx', function(){
     run('sudo systemctl reload nginx');
-    run('sudo systemctl restart php-fpm')
+    run('sudo systemctl restart php-fpm');
 });
