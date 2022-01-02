@@ -71,5 +71,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.KNOWN_HOSTS_OF_TARGET }}
       - name: Deploy to PRODUCTION Server
-        run: dep deploy --filename=deploy.php -vvv
+        run: dep deploy deploy.php -vvv
       
