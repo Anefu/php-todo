@@ -17,7 +17,7 @@ set('allow_annonymous_stats', false);
 
 //Hosts
 host('web1')
-    {% for host in SSH_WEB -%}->set('hostname', "${host},"){% endfor %}
+    ->set('hostname', '10.0.32.104')
     ->set('deploy_path', "/var/www/html/deployer")
     ->set('remote_user', 'ubuntu');
 
