@@ -16,7 +16,7 @@ set('writable_dirs', []);
 set('allow_annonymous_stats', false);
 
 //Hosts
-host('web1')
+host('target')
     ->set('hostname', '10.0.32.104')
     ->set('deploy_path', "/var/www/html/deployer")
     ->set('remote_user', 'ubuntu');
