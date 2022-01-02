@@ -51,7 +51,7 @@ jobs:
               User ubuntu
               IdentityFile ~/.ssh/id_rsa-target
               ProxyCommand ssh -W %h:%p bastion
-              
+
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -65,5 +65,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.KNOWN_HOSTS_OF_TARGET }}
       - name: Deploy to PRODUCTION Server
-        run: dep deploy deploy.php -vvv
+        run: dep deploy -vvv
       
