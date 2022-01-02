@@ -51,13 +51,7 @@ jobs:
               User ubuntu
               IdentityFile ~/.ssh/id_rsa-target
               ProxyCommand ssh -W %h:%p bastion
-
-  deploy-production:
-    name: Deploy Project
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v1
+              
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
