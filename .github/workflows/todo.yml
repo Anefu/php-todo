@@ -36,14 +36,19 @@ jobs:
             Host bastion
               HostName ${{ secrets.SSH_HOST }}
               User ubuntu
-
-      - name: Deploy app
-        run: |
-          cat << EOF >> ~/.ssh/config
-          Host target
-            HostName ${{ secrets.SSH_WEB }}
-            User ubuntu
-            ProxyCommand ssh -W %h:%p bastion
+              
+      - name: Install SSH key of target
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa-target
+          known_hosts: ${{ secrets.KNOWN_HOSTS_OF_TARGET }}
+          config: |                                         
+            Host target
+              HostName ${{ secrets.SSH_WEB }}
+              User ubuntu
+              IdentityFile ~/.ssh/id_rsa-target
+              ProxyCommand ssh -W %h:%p bastion
 
       - name: SSH Action
         run: ssh target 'hostname -i'
