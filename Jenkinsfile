@@ -54,6 +54,7 @@ pipeline {
         // }
         stage ("Remove images") {
             steps {
+                sh "docker-compose down"
                 sh "docker system prune -af"
             }
         }

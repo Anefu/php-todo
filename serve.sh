@@ -1,4 +1,2 @@
-php artisan migrate
-php artisan db:seed
-php artisan key:generate
-php artisan serve --host=0.0.0.0
+git clone git@github.com:Anefu/php-todo.git
+dep --filename=~/php-todo/deploy.php
