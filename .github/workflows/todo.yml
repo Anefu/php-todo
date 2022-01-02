@@ -29,6 +29,7 @@ jobs:
             username: ubuntu
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
-                bash -s < serve.sh
+                git clone git@github.com:Anefu/php-todo.git
+                bash -s < ~/php-todo/serve.sh
 
       
