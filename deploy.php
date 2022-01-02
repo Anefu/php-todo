@@ -28,7 +28,7 @@ task('deploy', [
     'deploy:update_code',
     'deploy:vendors',
     'deploy:symlink',
-    'artisan:migrate'
+    'artisan:migrate',
     'artisan:key:generate',
     'artisan:db:seed',
     'restart-nginx'
