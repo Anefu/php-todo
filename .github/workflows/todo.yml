@@ -20,10 +20,15 @@ jobs:
                 curl -LO https://deployer.org/deployer.phar
                 mv deployer.phar /usr/local/bin/dep
                 chmod +x /usr/local/bin/dep
-                cat << EOF > ~/deploy.php
                     
-      - name: SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
+
+      - name: Deploy app
+        uses: appleboy/ssh-action@master
         with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            host: ${{ secrets.SSH_HOST }}
+            username: ubuntu
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+                bash -s < serve.sh
+
       
