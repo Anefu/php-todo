@@ -18,7 +18,7 @@ set('allow_annonymous_stats', false);
 //Hosts
 host('target')
     ->set('hostname', '10.0.32.104')
-    ->set('deploy_path', "/var/www/html/deployer")
+    ->set('deploy_path', "~/app")
     ->set('remote_user', 'ubuntu');
 
 // Tasks
