@@ -31,7 +31,7 @@ task('deploy', [
     'artisan:migrate',
     'artisan:key:generate',
     'artisan:db:seed',
-    'restart-nginx'
+    // 'restart-nginx',
     'cleanup'
 ]);
 
