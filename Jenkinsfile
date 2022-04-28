@@ -3,13 +3,13 @@ pipeline {
 
   stages {
 
-     stage("Initial cleanup") {
-          steps {
-            dir("${WORKSPACE}") {
-              deleteDir()
-            }
-          }
+    stage("Initial cleanup") {
+        steps {
+        dir("${WORKSPACE}") {
+            deleteDir()
         }
+        }
+    }
 
     stage('Checkout SCM') {
       steps {
@@ -31,4 +31,6 @@ pipeline {
              sh './vendor/bin/phpunit'
       } 
    }
+  }
 }
+
